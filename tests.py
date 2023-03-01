@@ -24,6 +24,9 @@ import timeit
     #print('Rabin-Karp: ', timeit.timeit("RabinKarpSearch(i[0], i[1])", globals=globals(), number=n)/n)
     #print('Knuth-Morris-Pratt: ', timeit.timeit("KnuthMorrisPrattSearch(i[0], i[1])", globals=globals(), number=n)/n)
     
+
+from KnuthMorrisPratt import KnuthMorrisPrattSearch
+import timeit
 def is_prime(n):
     """
     Функция, которая определяет, является ли число n простым.
@@ -45,16 +48,12 @@ while len(primes) < 500:
     num += 1
 
 result = ''.join(primes)
-orb = []
-orb1=[]
-for i in range(10,100):
-    orb1.append(KnuthMorrisPrattSearch(result,str(i)))
-    if len(orb1)>len(orb):
-        orb = orb1
-        #orb - по идее, просто записывает в себя совпавшие с x элементы
-        x = i
-        #x - число, которое мы искали в массиве
-        orb1.clear()
-print(len(orb))
-print(x)
-#print(result)
+orb1 = {}
+orb = 0
+for i in range(90):
+    orb1[i] = len(KnuthMorrisPrattSearch(result,str(i + 10)))
+    print(i + 10, len(KnuthMorrisPrattSearch(result,str(i + 10))))
+    if orb1[i] > orb:
+        orb = orb1[i]
+        smth = i + 10
+print(orb, smth)
