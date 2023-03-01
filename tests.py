@@ -4,9 +4,9 @@ from KnuthMorrisPratt import KnuthMorrisPrattSearch
 from RabinKarp import RabinKarpSearch
 import timeit
 
-testfile = open('test.txt').readline()
-tests = [
-    [testfile, 'ab']
+#testfile = open('test.txt').readline()
+#tests = [
+   # [testfile, 'ab']
     # ['ЭТОИЭТОТ', 'ТОТ'],
     # ['aaabab', 'b'],
     # ['aefdgaabadfgagdgdab', 'ab'],
@@ -15,12 +15,46 @@ tests = [
     # ['sdfghjhkfuyjthdgfgnmhfkyturytesfdgfbgshrg','y']
 ]
 
-for i in tests:
-    n = 100
-    print('Average time for 100 iterations')
-    print('String length - ', len(testfile), 'symbols')
-    print('bruteforce: ', timeit.timeit("bruteforceSearch(i[0], i[1])", globals=globals(), number=n)/n)
-    print('Boyer-Moore: ', timeit.timeit("BoyerMooreSearch(i[0], i[1])", globals=globals(), number=n)/n)
-    print('Rabin-Karp: ', timeit.timeit("RabinKarpSearch(i[0], i[1])", globals=globals(), number=n)/n)
-    print('Knuth-Morris-Pratt: ', timeit.timeit("KnuthMorrisPrattSearch(i[0], i[1])", globals=globals(), number=n)/n)
+#for i in tests:
+    #n = 100
+    #print('Average time for 100 iterations')
+    #print('String length - ', len(testfile), 'symbols')
+    #print('bruteforce: ', timeit.timeit("bruteforceSearch(i[0], i[1])", globals=globals(), number=n)/n)
+    #print('Boyer-Moore: ', timeit.timeit("BoyerMooreSearch(i[0], i[1])", globals=globals(), number=n)/n)
+    #print('Rabin-Karp: ', timeit.timeit("RabinKarpSearch(i[0], i[1])", globals=globals(), number=n)/n)
+    #print('Knuth-Morris-Pratt: ', timeit.timeit("KnuthMorrisPrattSearch(i[0], i[1])", globals=globals(), number=n)/n)
     
+def is_prime(n):
+    """
+    Функция, которая определяет, является ли число n простым.
+    """
+    if n <= 1:
+        return False
+    for i in range(2, int(n**0.5)+1):
+        if n % i == 0:
+            return False
+    return True
+
+
+primes = []
+num = 2
+
+while len(primes) < 500:
+    if is_prime(num):
+        primes.append(str(num))
+    num += 1
+
+result = ''.join(primes)
+orb = []
+orb1=[]
+for i in range(10,100):
+    orb1.append(KnuthMorrisPrattSearch(result,str(i)))
+    if len(orb1)>len(orb):
+        orb = orb1
+        #orb - по идее, просто записывает в себя совпавшие с x элементы
+        x = i
+        #x - число, которое мы искали в массиве
+        orb1.clear()
+print(len(orb))
+print(x)
+#print(result)
